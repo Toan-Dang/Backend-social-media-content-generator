@@ -7,8 +7,8 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 import * as functions from "firebase-functions/v1";
-import { onRequest } from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+// import { onRequest } from "firebase-functions/v2/https";
+// import * as logger from "firebase-functions/logger";
 import express, { Express, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -17,6 +17,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import authRoute from "./module/auth/auth.routes";
 import contentRoute from "./module/content/content.routes";
+import profileRoute from "./module/profile/profile.routes";
 
 dotenv.config();
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -55,6 +56,7 @@ app.use(
 // specific route
 app.use(authRoute);
 app.use(contentRoute);
+app.use(profileRoute);
 // UnKnown Routes
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   const err = new Error(`Route ${req.originalUrl} not found`) as any;
@@ -79,8 +81,3 @@ exports.api = functions.https.onRequest(app);
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
-
-export const helloWorld = onRequest((request, response) => {
-  logger.info("Hello logs!", { structuredData: true });
-  response.send("Hello from Firebase!");
-});

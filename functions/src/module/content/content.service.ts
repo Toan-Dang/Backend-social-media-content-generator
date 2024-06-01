@@ -10,6 +10,13 @@ export async function GeneratePostCaptions(
   tone: string
 ) {
   const captions = await generateCaptions(social_network, subject, tone);
+  // const captions = [
+  //   "Back to school vibes! 📚 Feeling ready to tackle the new year with a fresh perspective and a whole lot of coffee. ☕️",
+  //   "School days are the best days! 🏫 Making memories and learning new things with my amazing classmates. 🤩",
+  //   "Who needs a filter when you have school spirit? 😜  #SchoolPride #BackToSchool",
+  //   "Can't believe summer is over, but I'm already excited for all the adventures this school year will bring! ✨",
+  //   "Time to hit the books! 🤓 Wishing everyone a fantastic school year filled with success and laughter. 😄",
+  // ];
   console.log("???captions", captions);
   return captions;
 }

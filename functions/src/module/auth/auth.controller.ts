@@ -7,7 +7,7 @@ export async function createNewAccessCode(
   res: Response,
   next: NextFunction
 ) {
-  console.info(`>>[auth] createNewAccessCode data ${req.body}`);
+  console.info(`>>[auth] createNewAccessCode data ${JSON.stringify(req.body)}`);
   await service.createNewAccessCode(req.body.phone_number);
   return ResponseSuccess(res, null);
 }
@@ -17,7 +17,7 @@ export async function validateAccessCode(
   res: Response,
   next: NextFunction
 ) {
-  console.info(`>>[auth] validateAccessCode data ${req.body}`);
+  console.info(`>>[auth] validateAccessCode data ${JSON.stringify(req.body)}`);
   const { phone_number, access_code } = req.body;
   const status = await service.validateAccessCode(phone_number, access_code);
   if (status === true) {

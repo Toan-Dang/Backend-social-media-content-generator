@@ -7,9 +7,9 @@ export async function GetUserGeneratedContents(
   res: Response,
   next: NextFunction
 ) {
-  console.info(`>>[auth] GetUserGeneratedContents data ${req.body}`);
-  await service.GetUserGeneratedContents(req.body.phone_number);
-  return ResponseSuccess(res, null);
+  console.info(`>>[profile] GetUserGeneratedContents params ${JSON.stringify(req.params)}`);
+  const result = await service.GetUserGeneratedContents(req.params.phone_number);
+  return ResponseSuccess(res, result);
 }
 
 export async function UnSaveContent(
@@ -17,7 +17,7 @@ export async function UnSaveContent(
   res: Response,
   next: NextFunction
 ) {
-  console.info(`>>[auth] UnSaveContent data ${req.body}`);
+  console.info(`>>[profile] UnSaveContent data ${JSON.stringify(req.body)}`);
   const { phone_number, captionId } = req.body;
   await service.UnSaveContent(phone_number, captionId );
   return ResponseSuccess(res, null);

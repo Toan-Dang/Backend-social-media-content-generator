@@ -7,14 +7,14 @@ export async function GeneratePostCaptions(
   res: Response,
   next: NextFunction
 ) {
-  console.info(`>>[content] GeneratePostCaptions data ${req.body}`);
+  console.info(`>>[content] GeneratePostCaptions data ${JSON.stringify(req.body)}`);
   const { socialNetwork, subject, tone } = req.body;
-  const resutl = await service.GeneratePostCaptions(
+  const result = await service.GeneratePostCaptions(
     socialNetwork,
     subject,
     tone
   );
-  return ResponseSuccess(res, resutl);
+  return ResponseSuccess(res, result);
 }
 
 export async function GetPostIdeas(
@@ -22,7 +22,7 @@ export async function GetPostIdeas(
   res: Response,
   next: NextFunction
 ) {
-  console.info(`>>[content] GetPostIdeas data ${req.body}`);
+  console.info(`>>[content] GetPostIdeas data ${JSON.stringify(req.body)}`);
   const { topic } = req.body;
   const result = await service.GetPostIdeas(topic);
   return ResponseSuccess(res, result);
@@ -33,7 +33,7 @@ export async function CreateCaptionsFromIdeas(
   res: Response,
   next: NextFunction
 ) {
-  console.info(`>>[content] CreateCaptionsFromIdeas data ${req.body}`);
+  console.info(`>>[content] CreateCaptionsFromIdeas data ${JSON.stringify(req.body)}`);
   const { idea } = req.body;
   const result = await service.CreateCaptionsFromIdeas(idea);
   return ResponseSuccess(res, result);
@@ -44,7 +44,7 @@ export async function SaveGeneratedContent(
     res: Response,
     next: NextFunction
   ) {
-    console.info(`>>[content] SaveGeneratedContent data ${req.body}`);
+    console.info(`>>[content] SaveGeneratedContent data ${JSON.stringify(req.body)}`);
     const { topic, data, phone_number } = req.body;
     await service.SaveGeneratedContent(topic, data, phone_number);
     return ResponseSuccess(res, null);

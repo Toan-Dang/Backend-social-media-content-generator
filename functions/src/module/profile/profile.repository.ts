@@ -6,7 +6,7 @@ export async function GetUserGeneratedContents(phone_number: string) {
     if (!querySnapshot.exists) {
       return null;
     }
-    const userData = querySnapshot.data()?.captions;
+    const userData = querySnapshot.data()?.contents;
     if (userData) {
       return userData;
     }

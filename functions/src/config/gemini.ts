@@ -11,8 +11,16 @@ async function generateCaptions(social_network: string, topic: string, tone: str
     const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
-    console.log(text);
-    return JSON.parse(text);
+    console.log("rawtext", text);
+    try {
+      // Remove backticks and any extraneous characters if necessary
+      const cleanText = text.replace(/```json/g, "").replace(/```/g, "");
+      console.log("Cleaned response text:", cleanText);
+      return JSON.parse(cleanText);
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      throw error;
+    }
   }
 
   async function generateIdeals(topic: string) {
@@ -23,20 +31,36 @@ async function generateCaptions(social_network: string, topic: string, tone: str
     const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
-    console.log(text);
-    return JSON.parse(text);
+    console.log("rawtext", text);
+    try {
+      // Remove backticks and any extraneous characters if necessary
+      const cleanText = text.replace(/```json/g, "").replace(/```/g, "");
+      console.log("Cleaned response text:", cleanText);
+      return JSON.parse(cleanText);
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      throw error;
+    }
   }
 
   async function generateCaptionsWithIdeal(idea: string) {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const prompt = `Write a 5 caption with my idea is ${idea} your result will return in JSON format {captions: ["caption1", "caption2",....]}`;
+    const prompt = `Write a 5 caption with idea is ${idea} your result will return in JSON format {captions: ["caption1", "caption2",....]}`;
 
     const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
-    console.log(text);
-    return JSON.parse(text);
+    console.log("rawtext", text);
+    try {
+      // Remove backticks and any extraneous characters if necessary
+      const cleanText = text.replace(/```json/g, "").replace(/```/g, "");
+      console.log("Cleaned response text:", cleanText);
+      return JSON.parse(cleanText);
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      throw error;
+    }
   }
 
 export { genAI, generateCaptions, generateIdeals, generateCaptionsWithIdeal };
