@@ -1,4 +1,4 @@
 interface UserData {
-    access_code: string;
-    phone_number: string;
+  access_code: string;
+  phone_number: string;
 }

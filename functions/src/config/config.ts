@@ -19,6 +19,9 @@ const config = {
     "accountSid": process.env.ACCOUNT_SID,
     "authToken": process.env.AUTH_TOKEN,
   },
+  gemini: {
+    "api_key": process.env.API_KEY,
+  },
 };
 
 export default config;

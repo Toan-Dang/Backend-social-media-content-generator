@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ResponseSuccess } from "../../utils/response.utils";
+import { ResponseSuccess, ResponseError } from "../../utils/response.utils";
 import * as service from "./auth.service";
 
 export async function createNewAccessCode(
@@ -7,19 +7,21 @@ export async function createNewAccessCode(
   res: Response,
   next: NextFunction
 ) {
-  console.info(">>[auth] createNewAccessCode");
+  console.info(`>>[auth] createNewAccessCode data ${req.body}`);
   await service.createNewAccessCode(req.body.phone_number);
   return ResponseSuccess(res, null);
 }
 
 export async function validateAccessCode(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
-    console.info(">>[auth] validateAccessCode");
-    const { phone_number, access_code } = req.body;
-    await service.validateAccessCode(phone_number, access_code);
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  console.info(`>>[auth] validateAccessCode data ${req.body}`);
+  const { phone_number, access_code } = req.body;
+  const status = await service.validateAccessCode(phone_number, access_code);
+  if (status === true) {
     return ResponseSuccess(res, null);
   }
-
+  return ResponseError(res, 401);
+}

@@ -1,6 +1,5 @@
-import { db } from "../../config/firebase";
 import { client } from "../../config/twilio";
-
+import * as repo from "./auth.repository";
 export async function createNewAccessCode(phone_number: string) {
   try {
     const access_code = generateRandomSixDigitNumber();
@@ -12,17 +11,11 @@ export async function createNewAccessCode(phone_number: string) {
         to: phone_number,
       })
       .then((message: any) => console.log(message.sid));
-    const checkUser = await db.users("Kun").doc(phone_number).get();
-    if (checkUser.exists) {
-      await db
-      .users("Kun")
-      .doc(phone_number)
-      .update({ access_code: access_code });
+    const checkUser = await repo.checkUser(phone_number);
+    if (checkUser) {
+      await repo.updateUser(phone_number, access_code);
     } else {
-      await db
-      .users("Kun")
-      .doc(phone_number)
-      .set({ phone_number: phone_number, access_code: access_code });
+      await repo.createUser(phone_number, access_code);
     }
 
     return access_code;
@@ -32,22 +25,22 @@ export async function createNewAccessCode(phone_number: string) {
   }
 }
 
-export async function validateAccessCode(phone_number: string, access_code: string) {
-    try {
-        const user = await db.users("Kun").doc(phone_number).get();
-        if (user.exists) {
-          const userData = user.data() as UserData | undefined;
-          if (userData && userData.access_code === access_code) {
-            await db.users("Kun").doc(phone_number).update({ access_code: "" });
-            return true;
-          }
-      }
-        return false;
-    } catch (error) {
-      console.error("validateAccessCode service errors", error);
-      throw error;
+export async function validateAccessCode(
+  phone_number: string,
+  access_code: string
+) {
+  try {
+    const user = await repo.checkUser(phone_number);
+    if (user && user.access_code === access_code) {
+      await repo.updateUser(phone_number, "");
+      return true;
     }
+    return false;
+  } catch (error) {
+    console.error("validateAccessCode service errors", error);
+    throw error;
   }
+}
 
 function generateRandomSixDigitNumber(): string {
   // Generate a random number between 100000 and 999999

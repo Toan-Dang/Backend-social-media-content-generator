@@ -6,7 +6,7 @@
  *
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
-import * as functions from "firebase-functions";
+import * as functions from "firebase-functions/v1";
 import { onRequest } from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
 import express, { Express, Request, Response, NextFunction } from "express";
@@ -16,6 +16,8 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import authRoute from "./module/auth/auth.routes";
+import contentRoute from "./module/content/content.routes";
+
 dotenv.config();
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Ddos = require("dddos");
@@ -52,6 +54,7 @@ app.use(
 
 // specific route
 app.use(authRoute);
+app.use(contentRoute);
 // UnKnown Routes
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   const err = new Error(`Route ${req.originalUrl} not found`) as any;
