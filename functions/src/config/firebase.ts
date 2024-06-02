@@ -13,6 +13,8 @@ const db = {
   companyCollection: dataPoint("Company_Collection"),
   users: (company: string) =>
     dataPoint(`Company_Collection/${company}/Users`),
+  idTracker: (company: string, phone_number: string) =>
+    dataPoint(`Company_Collection/${company}/Users/${phone_number}/idTracker`),
 };
 
 export {

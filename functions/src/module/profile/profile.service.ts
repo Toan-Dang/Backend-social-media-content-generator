@@ -8,7 +8,7 @@ export async function GetUserGeneratedContents(phone_number: string) {
   }
 }
 
-export async function UnSaveContent(phone_number: string, captionId: number) {
+export async function UnSaveContent(phone_number: string, captionId: string) {
     try {
       return await repo.unSaveContent(phone_number, captionId);
     } catch (error) {
