@@ -7,7 +7,7 @@ This is my repo FE: [Frontend Social Media Content Generator](https://github.com
 
 This is all my screenshop of my website: [Screen shot](https://www.figma.com/design/wJzstV4tQZK2Thh78BR3dr/Untitled?node-id=0-1&t=I3eoSbSj8ew7PS60-1)
 
-I have deployed my website to: [Content Generator](https://content-generator-98bba.web.app/)
+I have deployed my website to firebase hosting and you can test it: https://content-generator-98bba.web.app/
 
 ## About the Project
 This project uses TypeScript + Express with Firebase Cloud Functions to run the API. I have created three modules (auth, content, profile), each module has its own controller, service, and repository. The response of the API has been customized with my format.
