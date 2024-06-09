@@ -33,6 +33,9 @@ export async function unSaveContent(phone_number: string, captionId: string) {
         const updatedCaptions = content.captions.filter((caption: any) => caption.id !== captionId);
         if (updatedCaptions.length !== content.captions.length) {
           captionFound = true;
+          if (updatedCaptions.length === 0) {
+            content.topic = null;
+          }
           content.captions = updatedCaptions;
         }
         return content;
